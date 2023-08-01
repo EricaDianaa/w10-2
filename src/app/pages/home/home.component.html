@@ -44,7 +44,7 @@
     />
   </div>
   <span
-    *ngIf="!isValid('authData') && isTouched('authData')"
+    *ngIf="!isValid('authData') && isTouched('authData') && confirmPsw(form)"
     class="text-danger m-1"
     >Password non valida</span
   >

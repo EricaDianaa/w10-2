@@ -22,21 +22,20 @@ export class HomeComponent {
   ngOnInit() {
     this.form = this.fb.group(
       {
-        name: this.fb.control(null, [Validators.required]),
-        cognome: this.fb.control(null, [Validators.required]),
+        name: this.fb.control(null),
+        cognome: this.fb.control(null),
         genere: this.fb.control(null),
         textarea: this.fb.control(null),
         authData: this.fb.group({
           password: this.fb.control(null, [
             Validators.required,
             Validators.minLength(4),
-            Validators.maxLength(10),
+
             // Validators.pattern(""),
           ]),
           confirmpassword: this.fb.control(null, [
             Validators.required,
             Validators.minLength(4),
-            Validators.maxLength(10),
           ]),
         }),
       },
@@ -49,6 +48,7 @@ export class HomeComponent {
   }
   //Validazione(messaggio)
   isValid(fieldName: string) {
+    // console.log(this.form.get(fieldName)?.valid);
     return this.form.get(fieldName)?.valid;
   }
   isTouched(fieldName: string) {
@@ -57,6 +57,8 @@ export class HomeComponent {
 
   //conferma password non valida
   confirmPsw = (formC: AbstractControl): ValidationErrors | null => {
+    // console.log(formC.get("authData.confirmpassword"));
+
     if (
       formC.get("authData.password")!.value ===
       formC.get("authData.confirmpassword")!.value
