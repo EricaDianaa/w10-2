@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -19,27 +20,28 @@ export class HomeComponent {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.form = this.fb.group({
-      name: this.fb.control(null),
-      cognome: this.fb.control(null),
-      genere: this.fb.control(null),
-      textarea: this.fb.control(null),
-      authData: this.fb.group({
-        password: this.fb.control(null, [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(10),
-          // Validators.pattern(""),
-          this.confirmPsw,
-        ]),
-        confirmpassword: this.fb.control(null, [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(10),
-          this.confirmPsw,
-        ]),
-      }),
-    });
+    this.form = this.fb.group(
+      {
+        name: this.fb.control(null, [Validators.required]),
+        cognome: this.fb.control(null, [Validators.required]),
+        genere: this.fb.control(null),
+        textarea: this.fb.control(null),
+        authData: this.fb.group({
+          password: this.fb.control(null, [
+            Validators.required,
+            Validators.minLength(4),
+            Validators.maxLength(10),
+            // Validators.pattern(""),
+          ]),
+          confirmpassword: this.fb.control(null, [
+            Validators.required,
+            Validators.minLength(4),
+            Validators.maxLength(10),
+          ]),
+        }),
+      },
+      { validators: this.confirmPsw }
+    );
   }
   //invia form
   send() {
@@ -54,14 +56,16 @@ export class HomeComponent {
   }
 
   //conferma password non valida
-  confirmPsw = (formC: FormControl): ValidationErrors | null => {
-    console.log(formC);
-    if (formC.value === "password") {
+  confirmPsw = (formC: AbstractControl): ValidationErrors | null => {
+    if (
+      formC.get("authData.password")!.value ===
+      formC.get("authData.confirmpassword")!.value
+    ) {
       return null;
     } else {
       return {
         invalid: true,
-        message: "Password non utilizzabile",
+        message: " Conferma password non valida",
       };
     }
   };
