@@ -1,0 +1,40 @@
+<h1 class="text-center">Login</h1>
+<form
+  #myForm="ngForm"
+  (ngSubmit)="submit(f)"
+  #f="ngForm"
+  class="d-flex flex-column justify-content-center border border-secondary p-3 bg-info-subtle m-5"
+>
+  <input
+    #nome="ngModel"
+    type="text"
+    class="m-1"
+    name="nome"
+    required=""
+    ngModel
+    placeholder="Inserisci il tuo Username"
+  />
+  <span
+    class="border border-danger rounded-3 p- 2 bg-danger-subtle m-1 text-center"
+    *ngIf="nome.invalid && nome.touched"
+    >Inserisci nome</span
+  >
+
+  <input
+    #password="ngModel"
+    type="password"
+    class="m-1"
+    name="password"
+    required
+    ngModel
+    placeholder="Inserisci la tua password"
+  />
+  <span
+    class="border border-danger rounded-3 p- 2 bg-danger-subtle m-1 text-center"
+    *ngIf="password.invalid && password.touched"
+    >Inserisci password</span
+  >
+
+  <button class="btn btn-success" [disabled]="!myForm.valid">Invia</button>
+</form>
+<div class="d-flex flex-column align-items-center justify-content-center"></div>

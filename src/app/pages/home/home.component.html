@@ -1,0 +1,80 @@
+<h1 class="text-center mt-3">Registrati</h1>
+<form
+  [formGroup]="form"
+  class="d-flex flex-column justify-content-center border border-secondary p-3 bg-info-subtle m-5"
+>
+  <input
+    type="text"
+    class="m-1"
+    formControlName="name"
+    placeholder="Inserisci il tuo nome"
+    required
+  />
+  <span *ngIf="!isValid('name') && isTouched('name')" class="text-danger m-1"
+    >Inserisci il nome</span
+  >
+
+  <input
+    type="text"
+    class="m-1"
+    formControlName="cognome"
+    required
+    placeholder="Inserisci il tuo cognome"
+  />
+  <span
+    *ngIf="!isValid('cognome') && isTouched('cognome')"
+    class="m-1 text-danger"
+    >Inserisci il cognome</span
+  >
+
+  <div class="d-flex w-100" formGroupName="authData">
+    <input
+      type="password"
+      class="m-1 w-100"
+      required
+      formControlName="password"
+      placeholder="Inserisci la tua password"
+    />
+    <input
+      type="password"
+      class="m-1 w-100"
+      required
+      formControlName="confirmpassword"
+      placeholder="Conferma password"
+    />
+  </div>
+  <span
+    *ngIf="!isValid('authData') && isTouched('authData')"
+    class="text-danger m-1"
+    >Password non valida</span
+  >
+
+  <select formControlName="genere" id="genere" class="m-1">
+    <option value="Maschio">Maschio</option>
+    <option value="Femmina">Femmina</option>
+    <option value="Altro">Altro</option>
+  </select>
+
+  <input type="file" class="m-1 bg-white border border-secondary" name="nome" />
+
+  <textarea
+    class="m-1"
+    id="textarea"
+    formControlName="textarea"
+    rows="4"
+    cols="50"
+  ></textarea>
+
+  <button class="btn btn-success" (click)="send()">
+    Invia
+  </button>
+</form>
+<div class="d-flex flex-column align-items-center justify-content-center">
+  <h5>Sei gia registrato?</h5>
+  <button class="btn btn-primary" [routerLink]="['/login']">
+    Login
+  </button>
+</div>
+
+<!-- #myForm="ngForm"
+   [disabled]="!myForm.valid" -->
