@@ -30,13 +30,13 @@ export class HomeComponent {
           Validators.minLength(4),
           Validators.maxLength(10),
           // Validators.pattern(""),
-          // this.confirmPsw,
+          this.confirmPsw,
         ]),
         confirmpassword: this.fb.control(null, [
           Validators.required,
           Validators.minLength(4),
           Validators.maxLength(10),
-          // this.confirmPsw,
+          this.confirmPsw,
         ]),
       }),
     });
@@ -52,10 +52,11 @@ export class HomeComponent {
   isTouched(fieldName: string) {
     return this.form.get(fieldName)?.touched;
   }
+
   //conferma password non valida
   confirmPsw = (formC: FormControl): ValidationErrors | null => {
     console.log(formC);
-    if (formC.value === this.forms) {
+    if (formC.value === "password") {
       return null;
     } else {
       return {
